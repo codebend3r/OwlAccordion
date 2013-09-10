@@ -19,11 +19,13 @@ $.fn.owlaccordion = function (options) {
 		$this = this,
 		$children = $this.children(),
 		previousSelectedArchive,
-		previousID;
+		previousID,
+        buttonIDPropertyName = 'buttonID',
+        expandedClassName = 'expanded';
 
 	$children.each(function (i) {
 
-		$(this).attr('buttonid', i);
+		$(this).attr(buttonIDPropertyName, i);
 		$(this).children().hide();
 
 	});
@@ -34,17 +36,17 @@ $.fn.owlaccordion = function (options) {
 
 		var $target = $(e.currentTarget);
 
-		var $currentItem = $(this), thisID = $currentItem.attr('buttonid');
+		var $currentItem = $(this), thisID = $currentItem.attr(buttonIDPropertyName);
 
 		if (previousSelectedArchive) {
 			if (previousID === thisID) {
 				//same one selected
 			} else {
-				if (settings.autoClose) previousSelectedArchive.removeClass('expanded');
+				if (settings.autoClose) previousSelectedArchive.removeClass(expandedClassName);
 			}
 		}
 
-		$target.toggleClass('expanded');
+		$target.toggleClass(expandedClassName);
 
 		previousSelectedArchive = $currentItem;
 		previousID = thisID;
